@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>2026 八篇论文计划 - 预览</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 min-h-screen">
+  <!-- 导航栏 -->
+  <nav class="border-b border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-3">
+    <div class="flex items-center justify-between max-w-7xl mx-auto">
+      <a href="/" class="font-bold text-lg">📋 论文计划</a>
+      <div class="flex gap-4">
+        <a href="/dashboard" class="text-blue-600 dark:text-blue-400 font-medium">总览</a>
+        <a href="/papers" class="text-slate-600 dark:text-slate-400 hover:text-slate-800">论文</a>
+        <a href="/gantt" class="text-slate-600 dark:text-slate-400">甘特图</a>
+        <a href="/tasks" class="text-slate-600 dark:text-slate-400">任务中心 <span class="ml-1 rounded-full bg-amber-500 text-white text-xs px-2 py-0.5">3</span></a>
+        <a href="/settings" class="text-slate-600 dark:text-slate-400">设置</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="max-w-7xl mx-auto p-6 space-y-6">
+    <h1 class="text-2xl font-bold">总览 Dashboard</h1>
+
+    <!-- 今日提醒 -->
+    <div class="rounded-xl border border-amber-200 bg-amber-50 dark:border-amber-800 dark:bg-amber-900/30 p-3 text-amber-800 dark:text-amber-200">
+      📋 今日有 3 个任务待完成
+    </div>
+
+    <!-- KPI 卡片 -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-4">
+        <div class="text-sm text-slate-500 dark:text-slate-400">已投稿</div>
+        <div class="text-2xl font-bold text-blue-600 dark:text-blue-400">2</div>
+        <div class="text-xs text-slate-400">今年 8 篇</div>
+      </div>
+      <div class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-4">
+        <div class="text-sm text-slate-500 dark:text-slate-400">返修中</div>
+        <div class="text-2xl font-bold text-amber-600 dark:text-amber-400">1</div>
+        <div class="text-xs text-slate-400">进行中</div>
+      </div>
+      <div class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-4">
+        <div class="text-sm text-slate-500 dark:text-slate-400">已接收</div>
+        <div class="text-2xl font-bold text-green-600 dark:text-green-400">0</div>
+        <div class="text-xs text-slate-400">目标</div>
+      </div>
+      <div class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-4">
+        <div class="text-sm text-slate-500 dark:text-slate-400">本周到期</div>
+        <div class="text-2xl font-bold text-slate-600 dark:text-slate-300">5</div>
+        <div class="text-xs text-slate-400">任务数</div>
+      </div>
+    </div>
+
+    <!-- 今日任务 -->
+    <section class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-4">
+      <h2 class="font-semibold mb-3 flex items-center gap-2">
+        <span class="h-2 w-2 rounded-full bg-amber-500"></span>
+        今日任务
+      </h2>
+      <ul class="space-y-2">
+        <li class="flex items-center gap-2 p-2 rounded-lg bg-slate-50 dark:bg-slate-700/50">
+          <span class="text-amber-500">●</span>
+          <span>论文 A - 完成初稿</span>
+          <span class="ml-auto text-sm text-slate-500">进行中</span>
+        </li>
+        <li class="flex items-center gap-2 p-2 rounded-lg bg-slate-50 dark:bg-slate-700/50">
+          <span class="text-slate-400">○</span>
+          <span>论文 B - 修改图表</span>
+          <span class="ml-auto text-sm text-slate-500">待办</span>
+        </li>
+      </ul>
+    </section>
+
+    <!-- 论文列表 -->
+    <section class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-4">
+      <h2 class="font-semibold mb-3">论文列表</h2>
+      <div class="flex gap-2 mb-3">
+        <button class="px-3 py-1 rounded-lg bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300 text-sm">全部</button>
+        <button class="px-3 py-1 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-400 text-sm">AI治理</button>
+        <button class="px-3 py-1 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-400 text-sm">NETs</button>
+      </div>
+      <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <div class="rounded-lg border border-slate-200 dark:border-slate-600 p-3">
+          <div class="font-medium">论文 A</div>
+          <div class="text-sm text-slate-500">AI治理 · 进度 45%</div>
+          <div class="mt-2 h-1.5 rounded-full bg-slate-200 dark:bg-slate-600 overflow-hidden">
+            <div class="h-full w-[45%] bg-blue-500 rounded-full"></div>
+          </div>
+        </div>
+        <div class="rounded-lg border border-slate-200 dark:border-slate-600 p-3">
+          <div class="font-medium">论文 B</div>
+          <div class="text-sm text-slate-500">NETs · 进度 70%</div>
+          <div class="mt-2 h-1.5 rounded-full bg-slate-200 dark:bg-slate-600 overflow-hidden">
+            <div class="h-full w-[70%] bg-green-500 rounded-full"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="text-center text-sm text-slate-500 py-4">
+    2026 八篇论文计划 Web 看板 · 在浏览器中打开此文件即可预览
+  </footer>
+</body>
+</html>
