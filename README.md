@@ -1,83 +1,173 @@
-# 2026 八篇论文计划 Web 看板
+# AI辅助院内制剂真实世界研究与循证转化平台（PrepRWS AI）
 
-督促型论文进度看板，一眼看全局，支持甘特图、任务中心、论文详情。
+> 让经验方成为证据资产，让院内制剂走向循证转化。  
+> 面向经典名方、外用药与院内制剂的AI真实世界研究操作系统。
 
-## 在线访问
+本仓库提供一个可运行的 **MVP 全栈工程**：
 
-部署版本：**https://paper-board.vercel.app**（数据存于本机 localStorage）
+- 前端：**Vue 3 + TypeScript + Tailwind + Vue Router + Pinia + ECharts**
+- 后端：**FastAPI + SQLAlchemy + Alembic + PostgreSQL + Redis + JWT + RBAC**
+- 部署：**Docker / docker-compose**
 
-## 快速启动
+---
 
-**推荐**：将项目放在纯英文路径（如 `D:\paper-board`），避免中文路径导致的安装问题。
+## 目录结构
+
+```text
+.
+├── frontend/                    # Vue前端
+│   ├── src/
+│   │   ├── api/                 # API封装
+│   │   ├── components/          # 布局与通用组件
+│   │   ├── mock/                # 演示数据
+│   │   ├── router/              # 23个核心页面路由
+│   │   ├── stores/              # Pinia状态
+│   │   ├── types/               # TS类型
+│   │   └── views/               # 页面实现
+│   ├── Dockerfile
+│   └── package.json
+├── backend/                     # FastAPI后端
+│   ├── app/
+│   │   ├── api/routes/          # 业务路由
+│   │   ├── core/                # 配置/数据库/依赖
+│   │   ├── models/              # SQLAlchemy模型
+│   │   ├── schemas/             # Pydantic模型
+│   │   ├── services/            # AI/上传/审计服务
+│   │   ├── auth/                # JWT封装
+│   │   └── rbac/                # 权限映射
+│   ├── alembic/                 # 迁移配置
+│   ├── sql/schema.sql           # PostgreSQL建表SQL
+│   ├── seed.py                  # 样例数据初始化
+│   ├── requirements.txt
+│   └── Dockerfile
+├── docs/API.md                  # 接口文档
+├── docker-compose.yml
+├── Dockerfile                   # 根镜像（默认后端）
+└── .env.example
+```
+
+---
+
+## MVP 覆盖功能
+
+### 已实现（MVP-1 ~ MVP-8）
+
+1. 登录与JWT鉴权 + 简化RBAC  
+2. 院内制剂库（增删改查核心）  
+3. 研究项目管理（创建/查看/更新）  
+4. 脱敏病例管理（仅脱敏ID）  
+5. 创面图像上传 + AI分析占位 + 医生审核状态  
+6. 随访计划/记录 + 缺失提醒  
+7. SOP模板/版本管理 + AI建议占位  
+8. Dashboard统计卡片 + 趋势图 + 分布图  
+
+### 首页演示指标（按需求内置）
+
+- 当前项目：12个
+- 院内制剂：38个
+- 入组病例：286例
+- 创面图片：1248张
+- 随访完成率：82%
+- AI分析任务：936次
+- 不良反应：6例
+- 生成报告：18份
+
+---
+
+## 样例业务数据
+
+### 样例制剂（8个）
+
+1. 复方黄柏液外用制剂  
+2. 生肌玉红膏  
+3. 肛周熏洗方  
+4. 造口护肤膏  
+5. 肠瘘创面湿敷方  
+6. 慢性创面生肌散  
+7. 糖足清创外洗方  
+8. 术后切口修复膏  
+
+### 样例研究项目（4个）
+
+1. 肠瘘创面外用制剂真实世界疗效观察  
+2. 生肌玉红膏促进慢性创面愈合的真实世界研究  
+3. 肛周熏洗方用于肛瘘术后疼痛与水肿改善的临床观察  
+4. 造口周围皮炎外用制剂疗效评价研究  
+
+---
+
+## 本地运行（不使用Docker）
+
+### 1) 启动后端
 
 ```bash
-cd D:\paper-board   # 或 cd paper-board
+cd backend
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+cp .env.example .env
+alembic upgrade head
+python seed.py
+uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+```
+
+### 2) 启动前端
+
+```bash
+cd frontend
 npm install
+cp .env.example .env
 npm run dev
 ```
 
-或双击 `run.bat`（Windows）：自动检测依赖并启动开发服务器。
+访问：
 
-浏览器打开 [http://localhost:3000](http://localhost:3000)，默认跳转到 `/dashboard`。
+- 前端：http://localhost:5173
+- 后端API文档：http://localhost:8000/docs
 
-## 功能概览
+演示账号：
 
-- **总览 Dashboard** (`/dashboard`)：KPI 卡片、今日任务、逾期任务、本周里程碑、论文列表
-- **甘特图** (`/gantt`)：Day/Week/Month 视图、按论文/赛道/状态/负责人过滤、点击任务弹侧边栏编辑
-- **任务中心** (`/tasks`)：今天/明天/本周日程、快速勾选完成、标记阻塞
-- **论文列表** (`/papers`)：按赛道筛选、搜索、论文卡片
-- **论文详情** (`/papers/[id]`)：论文信息、进度条、目标期刊、任务列表（可编辑/删除）、文档链接
-- **设置** (`/settings`)：主题切换、负责人字典、每日提醒、导入/导出 JSON、导出 CSV
+- `admin / Admin123!`
 
-## 数据持久化
+---
 
-- MVP 使用 **localStorage** 持久化
-- 首次访问自动从 `public/seed.json` 加载 8 篇论文及任务
-- 修改任务/论文后自动保存到 localStorage
+## Docker 一键运行
 
-## 重置为初始数据
-
-清除浏览器 localStorage 中 `paper-board-data` 键，刷新页面即可重新加载 seed 数据。
-
-或在控制台执行：
-```javascript
-localStorage.removeItem('paper-board-data');
-location.reload();
+```bash
+docker compose up --build
 ```
 
-## 如何添加论文/任务
+服务端口：
 
-1. **添加论文**：需修改 `public/seed.json` 中 `papers` 数组，或后续扩展设置页
-2. **添加任务**：论文详情页可扩展“新增任务”按钮；或直接编辑 `seed.json` 后重置
+- frontend: 5173
+- backend: 8000
+- postgres: 5432
+- redis: 6379
+- minio: 9000（console: 9001）
 
-## 技术栈
+---
 
-- Next.js 16 + TypeScript + Tailwind CSS 4
-- 甘特图：自定义实现（无第三方库依赖）
-- 数据：JSON seed + localStorage
+## 合规实现说明
 
-## 红黄绿灯风险规则
+- 数据脱敏：病例只保留 `deidentified_id`
+- 最小必要原则：按角色约束菜单与接口权限
+- 全链路留痕：用户操作、数据修改、AI生成写入审计日志
+- AI限制声明：所有AI输出附带“不能替代医生判断”声明
+- 伦理/知情同意：接口预留，便于后续对接HIS/EMR
 
-- **绿灯**：距投稿 ≥ 14 天，或进度 ≥ 60%
-- **橙灯**：距投稿 7–14 天 且 进度 < 60%
-- **黄灯**：距投稿 3–7 天 且 进度 < 60%
-- **红灯**：距投稿 < 3 天 且 进度 < 60%
+---
 
-## 甘特图拖拽
+## API 文档
 
-- 在甘特图页面，可拖拽任务条左右移动以调整日期
-- 拖拽后自动保存到 localStorage
+详细见：`docs/API.md`
 
-## 文档链接
+---
 
-- 在论文详情页可添加、编辑、删除文档链接（Google Doc、Notion、本地路径等）
+## 后续迭代路线图
 
-## 主题与每日提醒
-
-- **主题**：导航栏或设置页可切换浅色/深色/跟随系统
-- **每日提醒**：设置页开启后，09:00 后首次访问时推送「今日到期 + 逾期」桌面通知
-- **移动端**：小屏下导航折叠为汉堡菜单
-
-## 键盘快捷键
-
-按 `g` 后按以下键快速跳转：`d` 总览 · `p` 论文 · `g` 甘特图 · `t` 任务中心 · `s` 设置
+1. 完善细粒度权限（页面/按钮/数据域）与多中心数据隔离  
+2. 接入真实对象存储（S3/MinIO）与异步队列（Celery任务）  
+3. 接入真实图像模型（分割、面积估算、感染风险预测）  
+4. 接入文本多模型路由（OpenAI/Gemini/DeepSeek/Kimi/Qwen/本地）  
+5. 增加CRF动态引擎、统计分析模块（PSM/生存分析）  
+6. 支持多租户SaaS模式与院内私有化部署模式  
