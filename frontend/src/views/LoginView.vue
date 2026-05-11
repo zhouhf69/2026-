@@ -13,6 +13,9 @@
           <input v-model="password" type="password" class="w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-2" />
         </div>
         <button class="w-full rounded-lg bg-medical-cyan py-2 font-medium text-slate-900 hover:opacity-90">登录</button>
+        <button type="button" class="w-full rounded-lg border border-slate-700 py-2 text-sm hover:bg-slate-800/70" @click="handleDemoLogin">
+          离线演示登录
+        </button>
         <p class="text-xs text-slate-500">演示账号：admin / Admin123!</p>
         <p v-if="error" class="text-xs text-rose-400">{{ error }}</p>
       </form>
@@ -39,5 +42,10 @@ async function handleLogin() {
     error.value = "登录失败，请检查账号密码或后端服务状态";
     console.error(err);
   }
+}
+
+function handleDemoLogin() {
+  auth.demoSignIn();
+  router.push("/dashboard");
 }
 </script>

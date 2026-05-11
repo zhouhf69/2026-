@@ -1,4 +1,12 @@
-import type { CaseItem, DashboardMetrics, PreparationItem, ProjectItem } from "@/types";
+import type {
+  CaseItem,
+  DashboardMetrics,
+  PreparationItem,
+  ProjectItem,
+  RoleScopeItem,
+  SystemConfig,
+  TransformationItem,
+} from "@/types";
 
 export const mockMetrics: DashboardMetrics = {
   current_projects: 12,
@@ -65,3 +73,52 @@ export const mockCases: CaseItem[] = [
     followup_status: "随访中",
   },
 ];
+
+export const mockTransformationProjects: TransformationItem[] = [
+  {
+    id: "tp-1",
+    transformation_name: "生肌玉红膏慢性创面转化项目",
+    evidence_level: "III级",
+    market_potential: "高",
+    phase: "真实世界研究",
+    milestones: "Q2完成证据包初稿，Q3启动多中心合作",
+  },
+  {
+    id: "tp-2",
+    transformation_name: "复方黄柏液外用制剂循证推广项目",
+    evidence_level: "III级",
+    market_potential: "中高",
+    phase: "专家共识",
+    milestones: "已完成病例系列整理，准备专家论证会",
+  },
+];
+
+export const mockRoleScopes: RoleScopeItem[] = [
+  {
+    id: "r1",
+    code: "PI",
+    name: "项目负责人",
+    menu_scope: ["dashboard", "projects", "cases", "wounds", "followups", "sops", "ai", "stats"],
+    page_scope: ["项目详情", "病例详情", "统计中心"],
+    button_scope: ["create", "update", "review"],
+    export_permission: true,
+    review_permission: true,
+  },
+  {
+    id: "r2",
+    code: "Doctor",
+    name: "临床医生",
+    menu_scope: ["dashboard", "cases", "wounds", "followups", "ai"],
+    page_scope: ["病例详情", "创面分析详情"],
+    button_scope: ["update", "review"],
+    export_permission: false,
+    review_permission: true,
+  },
+];
+
+export const mockSystemConfig: SystemConfig = {
+  departments: ["创面修复中心", "肛肠科", "皮肤科", "药学部"],
+  score_scales: ["疼痛NRS", "红肿评分", "渗液评分", "肉芽评分", "坏死评分"],
+  ai_providers: ["openai", "gemini", "deepseek", "kimi", "qwen", "local"],
+  message_channels: ["站内消息", "短信接口预留", "微信接口预留"],
+};

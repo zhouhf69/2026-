@@ -15,10 +15,16 @@ export const useAuthStore = defineStore("auth", () => {
     localStorage.setItem("preprws-role", role.value);
   }
 
+  function demoSignIn(): void {
+    token.value = "demo-token";
+    localStorage.setItem("preprws-token", "demo-token");
+    localStorage.setItem("preprws-role", role.value);
+  }
+
   function signOut(): void {
     token.value = null;
     localStorage.removeItem("preprws-token");
   }
 
-  return { token, role, isAuthed, signIn, signOut };
+  return { token, role, isAuthed, signIn, demoSignIn, signOut };
 });

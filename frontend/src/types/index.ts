@@ -39,3 +39,30 @@ export interface CaseItem {
   enrollment_status: string;
   followup_status: string;
 }
+
+export interface TransformationItem {
+  id: string;
+  transformation_name: string;
+  evidence_level?: string;
+  market_potential?: string;
+  phase: string;
+  milestones?: string;
+}
+
+export interface RoleScopeItem {
+  id: string;
+  code: string;
+  name: string;
+  menu_scope: string[];
+  page_scope: string[];
+  button_scope: string[];
+  export_permission: boolean;
+  review_permission: boolean;
+}
+
+export interface SystemConfig {
+  departments: string[];
+  score_scales: string[];
+  ai_providers: string[];
+  message_channels: string[];
+}

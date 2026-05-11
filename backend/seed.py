@@ -2,11 +2,13 @@ from app.core.database import SessionLocal
 from app.core.security import get_password_hash
 from app.models import (
     Department,
+    EvidencePackage,
     HospitalPreparation,
     ResearchProject,
     Role,
     SOPTemplate,
     SOPVersion,
+    TransformationProject,
     User,
 )
 
@@ -137,6 +139,32 @@ def run() -> None:
                 owner="护理组",
                 created_by="seed",
                 updated_by="seed",
+            )
+
+        transformation = db.query(TransformationProject).filter(TransformationProject.transformation_name == "生肌玉红膏慢性创面转化项目").first()
+        if not transformation:
+            transformation = TransformationProject(
+                transformation_name="生肌玉红膏慢性创面转化项目",
+                evidence_level="III级",
+                market_potential="高",
+                phase="真实世界研究",
+                milestones="Q2完成证据包初稿，Q3开展多中心准备",
+                created_by="seed",
+                updated_by="seed",
+            )
+            db.add(transformation)
+
+        evidence = db.query(EvidencePackage).filter(EvidencePackage.package_name == "生肌玉红膏证据包v1").first()
+        if not evidence:
+            db.add(
+                EvidencePackage(
+                    package_name="生肌玉红膏证据包v1",
+                    package_type="真实世界研究报告",
+                    status="生成中",
+                    summary="包含疗效趋势、安全性评价、统计图表和SOP修订建议。",
+                    created_by="seed",
+                    updated_by="seed",
+                )
             )
             db.add(sop_template)
             db.flush()
